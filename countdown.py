@@ -5,15 +5,19 @@ from itertools import combinations as combs
 def get_arithmetic(pair, frac=False):
     '''
     Given a tuple pair of numbers, returns a list of all possible
-    values that can be gotten using simple arithmetic operations
+    NON-NEGATIVE values that can be gotten using simple arithmetic operations
     on the input numbers
+    The frac flag determines if fractional solutions are to be included
     '''
 
-    x = pair[0]
-    y = pair[1]
-    if x*y == 0:
-        return [x+y, 0, x-y]
-    else:
+    x = max(pair) # Define x as the larger of the two
+    y = min(pair) # Define y as the smaller of the two
+    if x*y == 0: # If either value is 0
+        if x != y:
+            return [x+y, 0, x-y]
+        else:
+            return [0]
+    else: # If both values are non-zero
         if frac:
             return [x+y, x*y, x-y, x/y, y/x]
         else:
@@ -23,7 +27,10 @@ def get_arithmetic(pair, frac=False):
                 return [x+y, x*y, x-y]
 
 def solve(target, smalls, frac=False):
-    "target is the target value, smalls is a list of small values to be used"
+    """
+    Recursive function that solves the game with target value of 'target'
+    and available values stored in the list 'smalls'
+    """
     n = len(smalls)
     ix = list(range(n))
     smalls.sort()
@@ -40,7 +47,6 @@ def solve(target, smalls, frac=False):
             smallscopy2 = smalls.copy()
             smallscopy3 = smalls.copy()
             c = list(c)
-            c.sort(reverse=True)
             
             # First try by deleting the pair of numbers from the list entirely
             # i.e. not using them at all in the calculations
