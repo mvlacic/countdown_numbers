@@ -47,6 +47,7 @@ def solve(target, smalls, frac=False):
             smallscopy2 = smalls.copy()
             smallscopy3 = smalls.copy()
             c = list(c)
+            c.sort(reverse=True)
             
             # First try by deleting the pair of numbers from the list entirely
             # i.e. not using them at all in the calculations
