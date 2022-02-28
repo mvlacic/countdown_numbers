@@ -6,19 +6,21 @@ def get_arithmetic(pair, frac=False):
     '''
     Given a tuple pair of numbers, returns a list of all possible
     values that can be gotten using simple arithmetic operations
-    on the input numbers'''
+    on the input numbers
+    '''
+
     x = pair[0]
     y = pair[1]
-    if x*y!=0 and frac:
-        return [x+y, x*y, x-y, x/y, y/x]
-    elif x*y!=0 and not frac:
-        if x%y == 0:
-            return [x+y, x*y, x-y, int(x/y)]
-        else:
-            return [x+y, x*y, x-y]
-    else:
+    if x*y == 0:
         return [x+y, 0, x-y]
-
+    else:
+        if frac:
+            return [x+y, x*y, x-y, x/y, y/x]
+        else:
+            if x%y == 0:
+                return [x+y, x*y, x-y, int(x/y)]
+            else:
+                return [x+y, x*y, x-y]
 
 def solve(target, smalls, frac=False):
     "target is the target value, smalls is a list of small values to be used"
