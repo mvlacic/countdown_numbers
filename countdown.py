@@ -102,31 +102,28 @@ def solve(target, smalls, frac=False):
     else:
         newsmalls = []
         for c in combs(ix, 2):
-            smallscopy = smalls.copy()
-            smallscopy2 = smalls.copy()
-            smallscopy3 = smalls.copy()
             c = list(c)
             c.sort(reverse=True)
             
             # First try by deleting the pair of numbers from the list entirely
             # i.e. not using them at all in the calculations
-            
-            del smallscopy3[c[0]]
-            del smallscopy3[c[1]]
-            if solve(target, smallscopy3, frac) == 1:
+            newsmalls = smalls.copy()
+            del newsmalls[c[0]]
+            del newsmalls[c[1]]
+            if solve(target, newsmalls, frac) == 1:
                 return 1
             
             # If this doesnt work, try by combining them using arithemtic
-            
+            newsmalls = smalls.copy()
             pair = [smalls[i] for i in c]
             newvals = get_arithmetic(pair, frac)
-            del smallscopy[c[0]]
-            del smallscopy[c[1]]
+            del newsmalls[c[0]]
+            del newsmalls[c[1]]
             
             for val in newvals: # For each possible operation
                 result = val["result"]
                 equation = val["equation"]
-                if solve(target, smallscopy+[result], frac) == 1:
+                if solve(target, newsmalls+[result], frac) == 1:
                     print(equation)
                     operations.append(equation)
                     return 1
@@ -136,4 +133,5 @@ def countdown(target, smalls, frac=False):
     global operations
     operations=[]
     solve(target, smalls, frac)
+    return operations
 
