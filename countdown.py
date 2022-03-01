@@ -7,7 +7,7 @@ def get_arithmetic(pair, frac=False):
     Given a tuple pair of numbers, returns a list of all possible
     values that can be gotten using simple arithmetic operations
     on the input numbers
-    The function works such that is the inputs are both non-negative, then
+    The function works such that if the inputs are both non-negative, then
     all the results will also be non-negative
     The frac flag determines if fractional solutions are to be included
     '''
