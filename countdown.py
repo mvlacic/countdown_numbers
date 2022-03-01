@@ -90,9 +90,6 @@ def solve(target, smalls, frac=False):
     Recursive function that solves the game with target value of 'target'
     and available values stored in the list 'smalls'
     """
-    n = len(smalls)
-    ix = list(range(n))
-    smalls.sort()
     global operations
     if target in smalls:
         print(target)
@@ -101,24 +98,20 @@ def solve(target, smalls, frac=False):
     
     else:
         newsmalls = []
-        for c in combs(ix, 2):
-            c = list(c)
-            c.sort(reverse=True)
+        for c in combs(range(len(smalls)), 2):
+            c = set(c)
+
+            newsmalls = [i for j,i in enumerate(smalls) if j not in c]
             
             # First try by deleting the pair of numbers from the list entirely
             # i.e. not using them at all in the calculations
-            newsmalls = smalls.copy()
-            del newsmalls[c[0]]
-            del newsmalls[c[1]]
+
             if solve(target, newsmalls, frac) == 1:
                 return 1
             
             # If this doesnt work, try by combining them using arithemtic
-            newsmalls = smalls.copy()
             pair = [smalls[i] for i in c]
             newvals = get_arithmetic(pair, frac)
-            del newsmalls[c[0]]
-            del newsmalls[c[1]]
             
             for val in newvals: # For each possible operation
                 result = val["result"]
