@@ -97,7 +97,6 @@ def solve(target, smalls, frac=False):
         return 1
     
     else:
-        newsmalls = []
         for c in combs(range(len(smalls)), 2):
             c = set(c)
 
