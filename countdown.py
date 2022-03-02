@@ -2,11 +2,12 @@ from itertools import combinations as combs
 #Solves the number game from countdown
 #Given any input values
 
-def get_arithmetic(pair):
+def get_arithmetic_results(pair):
     '''
-    Given a tuple pair of numbers, returns a list of all possible
-    integer values that can be gotten using simple arithmetic operations
-    on the input numbers
+    Given a tuple pair of numbers, returns a dictionary where each key is
+    an integer value that can be calculated using simple arithmetic operations
+    on the input numbers, and the associated value is the corresponding equation string
+
     The function works such that if the inputs are both non-negative, then
     all the results will also be non-negative
     '''
@@ -49,15 +50,12 @@ def solve(target, smalls, operations = []):
             
             # If that doesn't work, try by combining them using arithemtic
             pair = [smalls[i] for i in c]
-            newvals = get_arithmetic(pair)
+            results = get_arithmetic_results(pair)
             
-            for val in newvals: # For each possible operation
-                result = val
-                equation = newvals[val]
+            for result in results: # For each possible operation
+                equation = results[result]
                 new_ops = solve(target, newsmalls+[result], operations)
                 if new_ops:
                     return [equation] + new_ops
 
     return []
-
-
