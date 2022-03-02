@@ -22,7 +22,7 @@ def get_arithmetic(pair):
         results[int(x/y)] = f"{x} / {y} = {int(x/y)}"
     return {i: results[i] for i in results if i not in pair}
 
-def solve(target, smalls, operations):
+def solve(target, smalls, operations = []):
     """
     Recursive function that solves the game with target value of 'target'
     and available values stored in the list 'smalls'
@@ -32,7 +32,7 @@ def solve(target, smalls, operations):
         return []
     
     if target in smalls:
-        return operations + [str(target)]
+        return [str(target)] + operations
     
     else:
         for c in combs(range(len(smalls)), 2):
@@ -56,11 +56,8 @@ def solve(target, smalls, operations):
                 equation = newvals[val]
                 new_ops = solve(target, newsmalls+[result], operations)
                 if new_ops:
-                    return new_ops + [equation]
+                    return [equation] + new_ops
 
     return []
-                    
-                    
-def countdown(target, smalls):
-    return solve(target, smalls, [])
+
 

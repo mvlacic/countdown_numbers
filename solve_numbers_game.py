@@ -1,7 +1,6 @@
-from countdown import countdown
+from countdown import solve
 import sys
 if __name__ == '__main__':
 
-    operations = countdown(int(sys.argv[1]), [int(i) for i in sys.argv[2:]])
-    operations.reverse()
+    operations = solve(int(sys.argv[1]), [int(i) for i in sys.argv[2:]])
     print(operations)
