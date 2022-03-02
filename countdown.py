@@ -28,11 +28,11 @@ def solve(target, smalls, operations):
     and available values stored in the list 'smalls'
     The 'operations' input is a list that stores the operations completed so far
     """
-    if target in smalls:
-        return operations + [str(target)]
-
     if not smalls:
         return []
+    
+    if target in smalls:
+        return operations + [str(target)]
     
     else:
         for c in combs(range(len(smalls)), 2):
