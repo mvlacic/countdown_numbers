@@ -20,7 +20,7 @@ def get_arithmetic(pair):
     }
     if y != 0 and x%y == 0:
         results[int(x/y)] = f"{x} / {y} = {int(x/y)}"
-    return results
+    return {i: results[i] for i in results if i not in pair}
 
 def solve(target, smalls, operations):
     """
@@ -47,7 +47,7 @@ def solve(target, smalls, operations):
             if new_ops:
                 return new_ops
             
-            # If this doesnt work, try by combining them using arithemtic
+            # If that doesn't work, try by combining them using arithemtic
             pair = [smalls[i] for i in c]
             newvals = get_arithmetic(pair)
             
