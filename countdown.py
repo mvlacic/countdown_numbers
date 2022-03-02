@@ -22,16 +22,17 @@ def get_arithmetic(pair):
         results[int(x/y)] = f"{x} / {y} = {int(x/y)}"
     return results
 
-def solve(target, smalls):
+def solve(target, smalls, operations):
     """
     Recursive function that solves the game with target value of 'target'
     and available values stored in the list 'smalls'
+    The 'operations' input is a list that stores the operations completed so far
     """
-    global operations
     if target in smalls:
-        print(target)
-        operations.append(target)
-        return 1
+        return operations + [str(target)]
+
+    if not smalls:
+        return []
     
     else:
         for c in combs(range(len(smalls)), 2):
@@ -42,8 +43,9 @@ def solve(target, smalls):
             # First try by deleting the pair of numbers from the list entirely
             # i.e. not using them at all in the calculations
 
-            if solve(target, newsmalls) == 1:
-                return 1
+            new_ops = solve(target, newsmalls, operations)
+            if new_ops:
+                return new_ops
             
             # If this doesnt work, try by combining them using arithemtic
             pair = [smalls[i] for i in c]
@@ -52,15 +54,13 @@ def solve(target, smalls):
             for val in newvals: # For each possible operation
                 result = val
                 equation = newvals[val]
-                if solve(target, newsmalls+[result]) == 1:
-                    print(equation)
-                    operations.append(equation)
-                    return 1
+                new_ops = solve(target, newsmalls+[result], operations)
+                if new_ops:
+                    return new_ops + [equation]
+
+    return []
                     
                     
 def countdown(target, smalls):
-    global operations
-    operations=[]
-    solve(target, smalls)
-    return operations
+    return solve(target, smalls, [])
 
