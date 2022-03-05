@@ -72,4 +72,38 @@ function solve(target, smalls, operations){
     return [];
 };
 
+function check_valid_input(input){
 
+}
+
+
+function print_result(){
+    console.log([...document.querySelectorAll(".input")].map(function(e) {return parseInt(e.value)}));
+    let inputs = [...document.querySelectorAll(".input")].map(function(v) {return v.value});
+    inputs.push(document.querySelector(".target").value);
+    const num_inputs = [];
+    for (let i = 0; i < inputs.length; i++){
+        let item = inputs[i];
+        if (item.match(/^[0-9]+$/) == null){
+            document.querySelector("p").innerHTML = "Please only input whole numbers"; 
+            return 1;
+        }
+        else if (isNaN(item)){
+            document.querySelector("p").innerHTML = "Please input 6 numbers";
+            return 1;
+        }
+        else if (item < 0 || item >= 1000){
+            document.querySelector("p").innerHTML = "Please keep all numbers between 0 and 999";
+            return 1;
+        }
+
+        if (i < inputs.length - 1){
+            num_inputs.push(parseInt(item));
+        }
+    }
+    console.log(num_inputs);
+    let target = parseInt(document.querySelector(".target").value);
+    output = solve(target,num_inputs,[]).join("<br />");
+    document.querySelector("p").innerHTML = output;
+    return 0;
+};
